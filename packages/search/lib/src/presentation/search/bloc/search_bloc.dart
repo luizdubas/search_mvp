@@ -1,19 +1,27 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
+import '../../../data/models/providers.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   @override
-  SearchState get initialState => SearchInitial();
+  SearchState get initialState => ProvidersLoadingState();
 
   @override
   Stream<SearchState> mapEventToState(
     SearchEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    try {
+      yield* event.applyAsync(this);
+    } catch (e) {
+      yield state;
+    }
   }
 }
