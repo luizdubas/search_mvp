@@ -1,3 +1,3 @@
 library search;
 
-export 'src/screen/search_page.dart';
+export 'src/presentation/search/widget/search_page.dart';
