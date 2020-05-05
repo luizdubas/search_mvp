@@ -29,3 +29,21 @@ class LoadProvidersEvent extends SearchEvent {
   @override
   List<Object> get props => [];
 }
+
+class SearchProviderEvent extends SearchEvent {
+  final String filter;
+
+  SearchProviderEvent(this.filter);
+
+  @override
+  Stream<SearchState> applyAsync(SearchBloc bloc) async* {
+    if (!(bloc.state is ProvidersLoadedState)) {
+      yield bloc.state;
+    }
+    final currentState = bloc.state as ProvidersLoadedState;
+    yield ProvidersLoadedState(currentState.providers, filter);
+  }
+
+  @override
+  List<Object> get props => [];
+}

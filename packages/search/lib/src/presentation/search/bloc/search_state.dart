@@ -26,11 +26,13 @@ class ProvidersLoadedState extends SearchState {
     if (filter == null || filter.isEmpty) {
       return providers;
     }
-    return providers.where((element) => element.name.startsWith(filter));
+    return providers
+        .where((element) => element.name.startsWith(filter))
+        .toList();
   }
 
   ProvidersLoadedState(this.providers, this.filter);
 
   @override
-  List<Object> get props => [providers];
+  List<Object> get props => [providers, filter];
 }
