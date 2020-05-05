@@ -20,8 +20,16 @@ class ProvidersLoadingErrorState extends SearchState {
 
 class ProvidersLoadedState extends SearchState {
   final List<Provider> providers;
+  final String filter;
 
-  ProvidersLoadedState(this.providers);
+  List<Provider> get filteredProviders {
+    if (filter == null || filter.isEmpty) {
+      return providers;
+    }
+    return providers.where((element) => element.name.startsWith(filter));
+  }
+
+  ProvidersLoadedState(this.providers, this.filter);
 
   @override
   List<Object> get props => [providers];
