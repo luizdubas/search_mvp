@@ -19,7 +19,15 @@ class SearchPage extends StatelessWidget {
             if (state is ProvidersLoadedState) {
               return SearchLoadedWidget(providers: state.providers);
             }
-            return Container();
+            if (state is ProvidersLoadingErrorState) {
+              return Container(
+                color: Colors.red,
+                child: Text('Error!!'),
+              );
+            }
+            return Container(
+              child: Text('Loading...'),
+            );
           },
         )),
       ),
