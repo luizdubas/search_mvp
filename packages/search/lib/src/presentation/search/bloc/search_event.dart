@@ -20,7 +20,10 @@ class LoadProvidersEvent extends SearchEvent {
       final providers = json
           .map((value) => Provider.fromJson(value as Map<String, dynamic>))
           .toList();
-      yield ProvidersLoadedState(providers, null);
+      yield ProvidersLoadedState(
+        providers: providers,
+        filteredProviders: providers,
+      );
     } catch (e) {
       yield const ProvidersLoadingErrorState();
     }
@@ -41,7 +44,10 @@ class SearchProviderEvent extends SearchEvent {
       yield bloc.state;
     }
     final currentState = bloc.state as ProvidersLoadedState;
-    yield ProvidersLoadedState(currentState.providers, filter);
+    yield ProvidersLoadedState.filter(
+      currentState,
+      filter,
+    );
   }
 
   @override

@@ -4,7 +4,7 @@ class SearchItem extends StatelessWidget {
   const SearchItem({
     Key key,
     @required this.animation,
-    this.name,
+    @required this.name,
   }) : super(key: key);
 
   final String name;
@@ -16,7 +16,7 @@ class SearchItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SizeTransition(
-          axis: Axis.horizontal,
+          axis: Axis.vertical,
           sizeFactor: animation,
           child: Column(
             children: [

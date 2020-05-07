@@ -17,7 +17,7 @@ class SearchPage extends StatelessWidget {
         body: SafeArea(child: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
             if (state is ProvidersLoadedState) {
-              return SearchLoadedWidget(providers: state.filteredProviders);
+              return SearchLoadedWidget(state: state);
             }
             if (state is ProvidersLoadingErrorState) {
               return Container(

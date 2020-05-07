@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:list_diff/list_diff.dart';
 import 'package:search/src/presentation/search/bloc/search_bloc.dart';
 
 import '../../../data/models/providers.dart';
@@ -7,21 +8,29 @@ import '../bloc/search_bloc.dart';
 import 'item/search_item.dart';
 
 class SearchLoadedWidget extends StatelessWidget {
-  SearchLoadedWidget({Key key, this.providers}) : super(key: key);
-
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  final List<Provider> providers;
-  ListModel<Provider> get _list {
-    return ListModel<Provider>(
+  SearchLoadedWidget({Key key, this.state}) : super(key: key) {
+    _list = ListModel<Provider>(
       listKey: _listKey,
-      initialItems: providers,
-      removedItemBuilder: _buildRemovedItem,
+      initialItems: state.oldFilteredProvidersList ?? state.providers,
+      removedItemBuilder: (item, context, animation) => null,
     );
   }
+
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
+  final ProvidersLoadedState state;
+  ListModel<Provider> _list;
 
   @override
   Widget build(BuildContext context) {
     final bloc = context.bloc<SearchBloc>();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      print('>> Operations: ${state.operations.length}');
+      for (var i = 0; i < state.operations.length; i++) {
+        _applyOperation(state.operations[i]);
+      }
+      //state.operations.forEach(_applyOperation);
+    });
     return Container(
       child: Column(
         children: [
@@ -48,15 +57,13 @@ class SearchLoadedWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildRemovedItem(
-    Provider item,
-    BuildContext context,
-    Animation<double> animation,
-  ) {
-    return SearchItem(
-      animation: animation,
-      name: item.name,
-    );
+  void _applyOperation(Operation<Provider> operation) {
+    var index = operation.index;
+    print('>> >> Operation: ${operation.toString()}');
+    if (operation.isInsertion)
+      _list.insert(index, state.filteredProviders[index]);
+    else
+      _list.removeAt(index);
   }
 
   Widget _buildItem(
@@ -92,7 +99,7 @@ class ListModel<E> {
   }
 
   E removeAt(int index) {
-    final E removedItem = _items.removeAt(index);
+    final E removedItem = _items[index];
     if (removedItem != null) {
       _animatedList.removeItem(
         index,
@@ -100,7 +107,7 @@ class ListModel<E> {
             removedItemBuilder(removedItem, context, animation),
       );
     }
-    return removedItem;
+    return _items.removeAt(index);
   }
 
   int get length => _items.length;
