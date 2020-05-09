@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:list_diff/list_diff.dart';
-import 'package:search/src/presentation/search/bloc/search_bloc.dart';
 
-import '../../../data/models/providers.dart';
-import '../bloc/search_bloc.dart';
-import 'item/search_item.dart';
+import '../../../../data/models/providers.dart';
+import '../../bloc/providers_bloc.dart';
+import 'item/providers_item.dart';
 
-class SearchLoadedWidget extends StatelessWidget {
-  SearchLoadedWidget({Key key, this.state}) : super(key: key) {
+class ProvidersLoadedPage extends StatelessWidget {
+  ProvidersLoadedPage({Key key, this.state}) : super(key: key) {
     _list = ListModel<Provider>(
       listKey: _listKey,
       initialItems: state.oldFilteredProviders ?? state.providers,
@@ -23,7 +22,7 @@ class SearchLoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.bloc<SearchBloc>();
+    final bloc = context.bloc<ProvidersBloc>();
     if (state.operations != null)
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         for (var i = 0; i < state.operations.length; i++)
@@ -39,7 +38,7 @@ class SearchLoadedWidget extends StatelessWidget {
             ),
             child: TextField(
               maxLines: 1,
-              onChanged: (text) => bloc.add(SearchProviderEvent(text)),
+              onChanged: (text) => bloc.add(SearchProvidersEvent(text)),
             ),
           ),
           Divider(),
@@ -68,7 +67,7 @@ class SearchLoadedWidget extends StatelessWidget {
     int index,
     Animation<double> animation,
   ) {
-    return SearchItem(
+    return ProviderItem(
       animation: animation,
       name: _list[index].name,
     );

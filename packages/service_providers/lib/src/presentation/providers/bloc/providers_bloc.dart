@@ -8,16 +8,18 @@ import 'package:list_diff/list_diff.dart';
 
 import '../../../data/models/providers.dart';
 
-part 'search_event.dart';
-part 'search_state.dart';
+part 'providers_event.dart';
+part 'load_providers_event.dart';
+part 'search_providers_event.dart';
+part 'providers_state.dart';
 
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
+class ProvidersBloc extends Bloc<ProvidersEvent, ProvidersState> {
   @override
-  SearchState get initialState => ProvidersLoadingState();
+  ProvidersState get initialState => ProvidersLoadingState();
 
   @override
-  Stream<SearchState> mapEventToState(
-    SearchEvent event,
+  Stream<ProvidersState> mapEventToState(
+    ProvidersEvent event,
   ) async* {
     try {
       yield* event.applyAsync(this);

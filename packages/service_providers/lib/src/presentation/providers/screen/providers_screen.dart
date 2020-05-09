@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/search_bloc.dart';
-import 'search_loaded_widget.dart';
+import '../bloc/providers_bloc.dart';
+import 'pages/providers_loaded_page.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({Key key}) : super(key: key);
+class ProvidersScreen extends StatelessWidget {
+  const ProvidersScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bloc = SearchBloc();
+    final bloc = ProvidersBloc();
     bloc.add(LoadProvidersEvent());
     return BlocProvider(
       create: (context) => bloc,
       child: Scaffold(
-        body: SafeArea(child: BlocBuilder<SearchBloc, SearchState>(
+        body: SafeArea(child: BlocBuilder<ProvidersBloc, ProvidersState>(
           builder: (context, state) {
             if (state is ProvidersLoadedState) {
-              return SearchLoadedWidget(state: state);
+              return ProvidersLoadedPage(state: state);
             }
             if (state is ProvidersLoadingErrorState) {
               return Container(

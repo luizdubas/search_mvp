@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SearchItem extends StatelessWidget {
-  const SearchItem({
+class ProviderItem extends StatelessWidget {
+  const ProviderItem({
     Key key,
     @required this.animation,
     @required this.name,

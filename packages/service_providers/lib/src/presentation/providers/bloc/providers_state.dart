@@ -1,24 +1,24 @@
-part of 'search_bloc.dart';
+part of 'providers_bloc.dart';
 
-abstract class SearchState extends Equatable {
-  const SearchState();
+abstract class ProvidersState extends Equatable {
+  const ProvidersState();
 }
 
-class ProvidersLoadingState extends SearchState {
+class ProvidersLoadingState extends ProvidersState {
   const ProvidersLoadingState();
 
   @override
   List<Object> get props => [];
 }
 
-class ProvidersLoadingErrorState extends SearchState {
+class ProvidersLoadingErrorState extends ProvidersState {
   const ProvidersLoadingErrorState();
 
   @override
   List<Object> get props => [];
 }
 
-class ProvidersLoadedState extends SearchState {
+class ProvidersLoadedState extends ProvidersState {
   final List<Provider> providers;
   final List<Provider> oldFilteredProviders;
   final List<Provider> filteredProviders;
