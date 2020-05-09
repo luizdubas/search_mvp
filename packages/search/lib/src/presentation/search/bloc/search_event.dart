@@ -44,10 +44,28 @@ class SearchProviderEvent extends SearchEvent {
       yield bloc.state;
     }
     final currentState = bloc.state as ProvidersLoadedState;
-    yield ProvidersLoadedState.filter(
-      currentState,
-      filter,
+    final filteredProviders = currentState.providers
+        .where((element) => _matchStart(
+              element,
+              filter,
+            ))
+        .toList();
+    final oldFilteredProviders =
+        currentState.filteredProviders ?? currentState.providers;
+    final operations = diffSync(
+      oldFilteredProviders,
+      filteredProviders,
     );
+    yield ProvidersLoadedState(
+      providers: currentState.providers,
+      oldFilteredProviders: oldFilteredProviders,
+      filteredProviders: filteredProviders,
+      operations: operations,
+    );
+  }
+
+  bool _matchStart(Provider element, String filter) {
+    return element.name.startsWith(filter);
   }
 
   @override

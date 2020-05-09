@@ -11,7 +11,7 @@ class SearchLoadedWidget extends StatelessWidget {
   SearchLoadedWidget({Key key, this.state}) : super(key: key) {
     _list = ListModel<Provider>(
       listKey: _listKey,
-      initialItems: state.oldFilteredProvidersList ?? state.providers,
+      initialItems: state.oldFilteredProviders ?? state.providers,
       removedItemBuilder: (item, context, animation) => Container(),
     );
   }
@@ -24,11 +24,11 @@ class SearchLoadedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.bloc<SearchBloc>();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      for (var i = 0; i < state.operations.length; i++) {
-        _applyOperation(state.operations[i]);
-      }
-    });
+    if (state.operations != null)
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        for (var i = 0; i < state.operations.length; i++)
+          _applyOperation(state.operations[i]);
+      });
     return Container(
       child: Column(
         children: [
