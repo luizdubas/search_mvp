@@ -12,7 +12,7 @@ class SearchLoadedWidget extends StatelessWidget {
     _list = ListModel<Provider>(
       listKey: _listKey,
       initialItems: state.oldFilteredProvidersList ?? state.providers,
-      removedItemBuilder: (item, context, animation) => null,
+      removedItemBuilder: (item, context, animation) => Container(),
     );
   }
 
@@ -25,11 +25,9 @@ class SearchLoadedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.bloc<SearchBloc>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      print('>> Operations: ${state.operations.length}');
       for (var i = 0; i < state.operations.length; i++) {
         _applyOperation(state.operations[i]);
       }
-      //state.operations.forEach(_applyOperation);
     });
     return Container(
       child: Column(
@@ -59,7 +57,6 @@ class SearchLoadedWidget extends StatelessWidget {
 
   void _applyOperation(Operation<Provider> operation) {
     var index = operation.index;
-    print('>> >> Operation: ${operation.toString()}');
     if (operation.isInsertion)
       _list.insert(index, state.filteredProviders[index]);
     else
@@ -99,7 +96,7 @@ class ListModel<E> {
   }
 
   E removeAt(int index) {
-    final E removedItem = _items[index];
+    final E removedItem = _items.removeAt(index);
     if (removedItem != null) {
       _animatedList.removeItem(
         index,
@@ -107,7 +104,7 @@ class ListModel<E> {
             removedItemBuilder(removedItem, context, animation),
       );
     }
-    return _items.removeAt(index);
+    return removedItem;
   }
 
   int get length => _items.length;
