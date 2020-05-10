@@ -15,7 +15,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ProvidersScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': ProvidersRoute().build,
+      },
     );
   }
 }

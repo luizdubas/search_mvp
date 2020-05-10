@@ -11,23 +11,18 @@ class ProvidersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = ProvidersBloc();
-    bloc.add(LoadProvidersEvent());
-    return BlocProvider(
-      create: (context) => bloc,
-      child: Scaffold(
-        body: SafeArea(child: BlocBuilder<ProvidersBloc, ProvidersState>(
-          builder: (context, state) {
-            if (state is ProvidersLoadedState) {
-              return ProvidersLoadedPage(state: state);
-            }
-            if (state is ProvidersLoadingErrorState) {
-              return ProvidersErrorPage();
-            }
-            return ProvidersLoadingPage();
-          },
-        )),
-      ),
+    return Scaffold(
+      body: SafeArea(child: BlocBuilder<ProvidersBloc, ProvidersState>(
+        builder: (context, state) {
+          if (state is ProvidersLoadedState) {
+            return ProvidersLoadedPage(state: state);
+          }
+          if (state is ProvidersLoadingErrorState) {
+            return ProvidersErrorPage();
+          }
+          return ProvidersLoadingPage();
+        },
+      )),
     );
   }
 }
