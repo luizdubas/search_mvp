@@ -24,7 +24,7 @@ class ProvidersBloc extends Bloc<ProvidersEvent, ProvidersState> {
     try {
       yield* event.applyAsync(this);
     } catch (e) {
-      yield state;
+      yield ProvidersLoadingErrorState();
     }
   }
 }
