@@ -4,7 +4,7 @@ import 'package:list_diff/list_diff.dart';
 
 import '../../../../data/models/providers.dart';
 import '../../bloc/providers_bloc.dart';
-import 'item/providers_item.dart';
+import 'item/provider_item.dart';
 
 class ProvidersLoadedPage extends StatelessWidget {
   ProvidersLoadedPage({Key key, this.state}) : super(key: key) {
