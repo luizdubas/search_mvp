@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/providers_bloc.dart';
+import 'pages/providers_error_page.dart';
 import 'pages/providers_loaded_page.dart';
+import 'pages/providers_loading_page.dart';
 
 class ProvidersScreen extends StatelessWidget {
   const ProvidersScreen({Key key}) : super(key: key);
@@ -20,14 +22,9 @@ class ProvidersScreen extends StatelessWidget {
               return ProvidersLoadedPage(state: state);
             }
             if (state is ProvidersLoadingErrorState) {
-              return Container(
-                color: Colors.red,
-                child: Text('Error!!'),
-              );
+              return ProvidersErrorPage();
             }
-            return Container(
-              child: Text('Loading...'),
-            );
+            return ProvidersLoadingPage();
           },
         )),
       ),
