@@ -36,5 +36,6 @@ class ProvidersLoadedState extends ProvidersState {
         providers,
         oldFilteredProviders,
         filteredProviders,
+        operations,
       ];
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/providers.dart';
 
