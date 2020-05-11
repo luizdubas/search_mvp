@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:service_providers/src/data/managers/providers_manager.dart';
 import '../../bloc/providers_bloc.dart';
 
 class ProvidersErrorPage extends StatelessWidget {
@@ -8,6 +10,7 @@ class ProvidersErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.bloc<ProvidersBloc>();
+    final manager = Provider.of<ProvidersManager>(context);
     return Container(
       child: Center(
         child: Padding(
@@ -35,7 +38,8 @@ class ProvidersErrorPage extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(Icons.rotate_left),
                   iconSize: 52.0,
-                  onPressed: () => bloc.add(LoadProvidersEvent()),
+                  onPressed: () =>
+                      bloc.add(LoadProvidersEvent(manager: manager)),
                 ),
               ),
             ],
