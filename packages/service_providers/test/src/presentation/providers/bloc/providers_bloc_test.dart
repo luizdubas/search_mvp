@@ -80,7 +80,6 @@ void main() {
         bloc,
         emitsInOrder([
           initialState,
-          emitsDone,
         ]),
       );
 

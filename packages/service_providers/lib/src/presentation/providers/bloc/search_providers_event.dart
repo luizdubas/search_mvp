@@ -9,26 +9,27 @@ class SearchProvidersEvent extends ProvidersEvent {
   Stream<ProvidersState> applyAsync(ProvidersBloc bloc) async* {
     if (!(bloc.state is ProvidersLoadedState)) {
       yield bloc.state;
+    } else {
+      final currentState = bloc.state as ProvidersLoadedState;
+      final filteredProviders = currentState.providers
+          .where((element) => _matchStart(
+                element,
+                filter,
+              ))
+          .toList();
+      final oldFilteredProviders =
+          currentState.filteredProviders ?? currentState.providers;
+      final operations = diffSync(
+        oldFilteredProviders,
+        filteredProviders,
+      );
+      yield ProvidersLoadedState(
+        providers: currentState.providers,
+        oldFilteredProviders: oldFilteredProviders,
+        filteredProviders: filteredProviders,
+        operations: operations,
+      );
     }
-    final currentState = bloc.state as ProvidersLoadedState;
-    final filteredProviders = currentState.providers
-        .where((element) => _matchStart(
-              element,
-              filter,
-            ))
-        .toList();
-    final oldFilteredProviders =
-        currentState.filteredProviders ?? currentState.providers;
-    final operations = diffSync(
-      oldFilteredProviders,
-      filteredProviders,
-    );
-    yield ProvidersLoadedState(
-      providers: currentState.providers,
-      oldFilteredProviders: oldFilteredProviders,
-      filteredProviders: filteredProviders,
-      operations: operations,
-    );
   }
 
   bool _matchStart(Provider element, String filter) {
