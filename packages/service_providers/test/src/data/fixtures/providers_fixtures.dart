@@ -11,7 +11,7 @@ const String singleProviderJson =
 const String invalidSingleProviderJson =
     '{"features":[""],"id":"36","type":"laboratory","specialties":[""],"sub_specialties":[""],"addresses":[{"address":"Avenida Brigadeiro Luis Antônio, 2332"}],"simplified_addresses":[{"address":"Avenida Brigadeiro Luis Antônio, 2332"}],"site":"www.amaissaude.com.br","crm":"","cnpj":"60840055010447","phones":[{"phone":"(11) 3139-8000"}],"working_hours":{"always_open":false,"weekday_text":["Segunda-feira: 06:30 - 18:00","Terça-feira: 06:30 - 18:00","Quarta-feira: 06:30 - 18:00","Quinta-feira: 06:30 - 18:00","Sexta-feira: 06:30 - 18:00","Sábado: 06:30 - 12:00","Domingo: 06:30 - 12:00"]},"qualifications":[],"image_url":"","education":[""],"curiosity":""}';
 
-const List<Provider> providerList = [
+const List<Provider> providersList = [
   Provider(name: 'A+ Morumbi'),
   Provider(name: 'Fleury - Avenida Brasil'),
   Provider(name: 'Fleury Anália Franco II'),
